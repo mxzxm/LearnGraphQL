@@ -12,5 +12,15 @@ const resolvers = {
 			return authors.find((author) => parent.authorId == author.id);
 		},
 	},
+	Author: {
+		books: (parent, args) => {
+			return books.filter((book) => book.authorId == parent.id);
+		},
+	},
+	//mutation
+	Mutation: {
+		createAuthor: (parent, args) => {},
+		createBook: (parent, args) => {},
+	},
 };
 export { resolvers };
