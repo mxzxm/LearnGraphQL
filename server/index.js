@@ -10,5 +10,5 @@ const server = new ApolloServer({
 await server.start();
 server.applyMiddleware({ app });
 app.listen(3000, () => {
-	console.log(`PORT: 3000`);
+	console.log(`3000`);
 });
