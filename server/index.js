@@ -14,7 +14,7 @@ const connectDB = () => {
 				useNewUrlParser: true,
 			},
 		);
-		console.log('MongoDB connected');
+		console.log('MongoDb connected');
 	} catch (error) {
 		console.log(error.message);
 		process.exit();
