@@ -1,26 +1,28 @@
-import { books, authors } from '../data/static.js';
 const resolvers = {
 	Query: {
-		books: () => books,
-		book: (parent, args) => books.find((book) => book.id == args.id),
-		authors: () => authors,
-		author: (parent, args) =>
-			authors.find((author) => author.id == args.id),
+		books: async (parent, args, context) =>
+			await context.mongoDataMethods.getAllBooks(),
+		book: async (parent, args, context) =>
+			await context.mongoDataMethods.getBookById(args.id),
+		authors: async (parent, args, context) =>
+			await context.mongoDataMethods.getAllAuthors(),
+		author: async (parent, args, context) =>
+			await context.mongoDataMethods.getAuthorById(args.id),
 	},
 	Book: {
-		author: (parent, args) => {
-			return authors.find((author) => parent.authorId == author.id);
-		},
+		author: async (parent, args, context) =>
+			await context.mongoDataMethods.getAuthorById(parent.authorId),
 	},
 	Author: {
-		books: (parent, args) => {
-			return books.filter((book) => book.authorId == parent.id);
-		},
+		books: async (parent, args, context) =>
+			await context.mongoDataMethods.getBookByAuthorId(parent.id),
 	},
 	//mutation
 	Mutation: {
-		createAuthor: (parent, args) => {},
-		createBook: (parent, args) => {},
+		createAuthor: async (parent, args, context) =>
+			await context.mongoDataMethods.createAuthor(args),
+		createBook: async (parent, args, context) =>
+			await context.mongoDataMethods.createAuthor(args),
 	},
 };
 export { resolvers };
